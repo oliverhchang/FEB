@@ -93,7 +93,7 @@ def main():
     plt.legend(title="Chassis Stiffness")
     plt.grid(True, linestyle=':')
     plt.xlim(0, 1)
-    plt.ylim(0.1, 0.9)
+    plt.ylim(0.2, 0.75)
     plt.tight_layout()
     plt.show()
 
