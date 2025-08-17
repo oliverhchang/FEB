@@ -37,7 +37,7 @@ def main():
 
     # --- Design Goal Parameters ---
     # Define the maximum acceptable non-linearity error for tunability
-    sensitivity_error_threshold = 0.08  # Example: 10% maximum acceptable sensitivity error
+    sensitivity_error_threshold = 0.1  # Example: 10% maximum acceptable sensitivity error
     # Define the realistic operating range for your suspension setup
     target_lambda_range = [0.4, 0.6]  # e.g., from 40% to 60% front stiffness
 
