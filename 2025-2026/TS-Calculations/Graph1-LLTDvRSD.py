@@ -55,7 +55,7 @@ def main():
         'm': 310.0,           # Total mass of the vehicle
         'm_uF': 12.0,         # Unsprung mass for a single front corner (wheel, tire, upright, etc.)
 
-        # Stiffness Parameters [N/rad]
+        # Stiffness Parameters [Nm/deg
         'k_f': 240,           # Front suspension roll stiffness (from springs, anti-roll bars, etc.)
         'k_r': 120,           # Rear suspension roll stiffness (from springs, anti-roll bars, etc.)
     }
