@@ -23,12 +23,12 @@ def calculate_LLTD(l, mu, params):
 def calculate_rigid_sensitivity(params):
     """
     Calculates the ideal sensitivity (d(chi_0)/d(lambda)) for a perfectly rigid chassis.
-    This is a constant value, representing a linear relationship.
+    This is a constant value, representing predictable tuning response.
     """
     term1_deriv = (params['d_sF'] * params['m_sF']) / (params['h_G'] * params['m'])
     term2_deriv = (params['d_sR'] * params['m_sR']) / (params['h_G'] * params['m'])
 
-    return term1_deriv - term2_deriv
+    return term1_deriv + term2_deriv
 
 
 def main():
