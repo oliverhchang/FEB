@@ -38,7 +38,7 @@ def main():
 
     # --- Design Goal Parameters ---
     # Define the maximum acceptable error
-    error_threshold = 0.05  # Example: 10% maximum acceptable error
+    error_threshold = 0.03
 
     # --- Step 1: Define All Vehicle Parameters in a Single Dictionary ---
     vehicle_params = {
