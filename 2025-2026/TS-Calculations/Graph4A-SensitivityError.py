@@ -28,6 +28,7 @@ def calculate_rigid_sensitivity(params):
     term1_deriv = (params['d_sF'] * params['m_sF']) / (params['h_G'] * params['m'])
     term2_deriv = (params['d_sR'] * params['m_sR']) / (params['h_G'] * params['m'])
 
+    # The correct limit of the derivative is A + B
     return term1_deriv + term2_deriv
 
 
