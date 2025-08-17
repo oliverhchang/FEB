@@ -37,7 +37,7 @@ def main():
 
     # --- Design Goal Parameters ---
     # Define the maximum acceptable non-linearity error for tunability
-    sensitivity_error_threshold = 0.10  # Example: 10% maximum acceptable sensitivity error
+    sensitivity_error_threshold = 0.08  # Example: 10% maximum acceptable sensitivity error
     # Define the realistic operating range for your suspension setup
     target_lambda_range = [0.4, 0.6]  # e.g., from 40% to 60% front stiffness
 
@@ -48,7 +48,7 @@ def main():
         'z_R': 0.165, 'd_sF': 0.150, 'd_sR': 0.130, 'z_uF': 0.12,
         # Mass Parameters [kg]
         'm': 310.0, 'm_uF': 12.0,
-        # Stiffness Parameters [N·m/rad]
+        # Stiffness Parameters [N·m/deg] - Fixed units
         'k_f': 240,
         'k_r': 176,
     }
@@ -105,17 +105,18 @@ def main():
                         worst_mu = mu_interp
                         worst_lambda = lambda_val
 
+    # Highlight the target operating range
     ax.axhspan(target_lambda_range[0], target_lambda_range[1], color='white', alpha=0.15, zorder=0)
 
     if worst_mu > 0:
-        kc_sweet_spot_deg = worst_mu * total_roll_stiffness * (np.pi / 180)
+        kc_sweet_spot_deg = worst_mu * total_roll_stiffness
 
         ax.axhline(y=worst_lambda, color='white', linestyle='--', lw=2)
         ax.plot([worst_mu, worst_mu], [0, worst_lambda], color='white', linestyle='--', lw=2)
         ax.annotate(
             f'Worst Case λ: {worst_lambda:.2f}\nRequired μ: {worst_mu:.2f}\n(k_c ≈ {kc_sweet_spot_deg:.0f} N·m/deg)',
-            xy=(worst_mu, 0), xytext=(worst_mu, -0.1),
-            color='white', ha='center', va='top',
+            xy=(worst_mu, 0), xytext=(worst_mu, 0.1),
+            color='white', ha='center', va='bottom',
             arrowprops=dict(arrowstyle='->', color='white'))
 
     # --- Step 7: Styling ---
@@ -124,6 +125,8 @@ def main():
     ax.set_ylabel('λ', fontsize=14, rotation=0, labelpad=15)
     ax.set_title('LLTD Sensitivity Error (Non-Linearity)', fontsize=16)
     ax.set_box_aspect(1)
+    ax.set_xlim(0.1, 10)  # Ensure proper x-axis limits
+    ax.set_ylim(0, 1)     # Standard y-axis limits
 
     ax.set_xticks([0.1, 1, 10])
     ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
