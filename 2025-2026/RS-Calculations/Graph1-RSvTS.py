@@ -1,93 +1,102 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 
-def calculate_understeer_gradient(lambda_vals, mu_vals, params):
+def calculate_understeer_gradient(lambda_vals, mu, params):
     """
-    Calculates the understeer gradient (ku) for a flexible chassis using Equation 3.16.
+    Calculates the understeer gradient (ku) for a flexible chassis.
+    Returns ku in deg/g (using degrees throughout).
     """
-    m = params['m']
-    a = params['a']
-    b = params['b']
-    l = params['l']
-    C_F = params['C_F']
-    C_R = params['C_R']
-    eps_F = params['eps_F']
-    eps_R = params['eps_R']
-    zeta = params['zeta']
-    phi_y = params['phi_y']
+    l = np.copy(lambda_vals)
+    g = 9.81  # m/s^2
 
-    # Broadcast meshgrid
-    L, M = np.meshgrid(lambda_vals, mu_vals)
+    # --- Part 1: Standard Understeer from Tire/Mass properties ---
+    tire_mass_component = (params['m'] / params['l']) * (
+        (params['b_cg_rear'] / params['C_F_deg']) - (params['a_cg_front'] / params['C_R_deg'])
+    )
 
-    # First term (rigid chassis contribution)
-    term1 = (m / l) * (b / C_F - a / C_R)
+    # --- Part 2: Roll Steer Component for a Flexible Chassis ---
+    denominator = mu + l - l ** 2
+    denominator[denominator == 0] = 1e-9  # prevent divide by zero
 
-    # Flexible chassis correction terms
-    denominator = L + M - L**2
-    denominator[denominator == 0] = 1e-9  # avoid divide by zero
+    phi_y = params['phi_y']  # baseline roll gradient from springs (deg per m/s^2)
 
-    term2 = ((M + (1 - L) * zeta) / denominator) * eps_F
-    term3 = ((M + L * (1 - zeta)) / denominator) * eps_R
+    phi_f_component = (mu + (1 - l) * params['zeta']) / denominator
+    phi_r_component = (mu + l * (1 - params['zeta'])) / denominator
 
-    ku = term1 - (term2 - term3) * phi_y
+    roll_steer_component = (phi_f_component * params['eps_F'] - phi_r_component * params['eps_R']) * phi_y
 
-    return ku
+    ku_deg_per_g = (tire_mass_component - roll_steer_component) * g  # Already in deg, multiply by g for deg/g
+    return ku_deg_per_g
+
 
 def main():
-    """Main function to generate the Understeer Gradient contour plot."""
+    """Generate Understeer Gradient vs. Roll Stiffness Distribution plot (deg units)."""
 
-    # --- Vehicle Parameters ---
+    # --- Vehicle parameters ---
     vehicle_params = {
-        # Geometry
-        'l': 2.5,   # wheelbase [m]
-        'a': 1.25,  # CG to front axle [m]
-        'b': 1.25,  # CG to rear axle [m]
-
-        # Mass
-        'm': 310.0,  # total mass [kg]
-
-        # Tire cornering stiffness [N/rad]
+        'm': 310.0, 'm_uF': 12.0,
+        'm_uR': 12.0,
+        'l': 1.592,
+        'front_weight_dist': 0.535,
+        'd_sF': 0.273 - 0.115,
+        'd_sR': 0.273 - 0.165,
+        'k_F_springs': 240.0,
+        'k_R_springs': 176.0,  # N·m/deg
+        'eps_F': 0.07,
+        'eps_R': 0.12,
         'C_F': 250.0,
-        'C_R': 250.0,
-
-        # Compliance parameters
-        'eps_F': -0.05,
-        'eps_R': 0.15,
-        'zeta': 0.5,      # front/rear distribution factor (example value)
-        'phi_y': 1.0      # lateral compliance scaling factor (example value)
+        'C_R': 250.0,  # Tire cornering stiffness in N·m/deg
     }
 
-    # --- Grid setup ---
-    lambda_vals = np.linspace(0.01, 1, 200)  # λ range
-    mu_vals = np.logspace(-1, 1, 200)        # μ range (0.1 to 10)
+    # --- Pre-calculations ---
+    vehicle_params['a_cg_front'] = vehicle_params['l'] * (1 - vehicle_params['front_weight_dist'])
+    vehicle_params['b_cg_rear'] = vehicle_params['l'] * vehicle_params['front_weight_dist']
 
-    ku = calculate_understeer_gradient(lambda_vals, mu_vals, vehicle_params)
+    # Sprung masses
+    m_sF = (vehicle_params['m'] * vehicle_params['b_cg_rear'] / vehicle_params['l']) - vehicle_params['m_uF']
+    m_sR = (vehicle_params['m'] * vehicle_params['a_cg_front'] / vehicle_params['l']) - vehicle_params['m_uR']
 
-    # --- Plot ---
+    vehicle_params['zeta'] = (m_sF * vehicle_params['d_sF']) / \
+                             (m_sF * vehicle_params['d_sF'] + m_sR * vehicle_params['d_sR'])
+
+    # Keep cornering stiffness in deg
+    vehicle_params['C_F_deg'] = vehicle_params['C_F']
+    vehicle_params['C_R_deg'] = vehicle_params['C_R']
+
+    # Roll stiffness in deg
+    total_roll_stiffness_deg = vehicle_params['k_F_springs'] + vehicle_params['k_R_springs']
+    roll_moment_total = m_sF * vehicle_params['d_sF'] + m_sR * vehicle_params['d_sR']
+    vehicle_params['phi_y'] = roll_moment_total / total_roll_stiffness_deg  # deg per m/s^2
+
+    # --- Simulation ---
+    lambda_range = np.linspace(0.2, 0.8, 500)
+    mu_values_to_plot = [0.1, 0.2, 0.5, 1, 2, 5,10]  # μ = chassis flex ratio
+
     fig, ax = plt.subplots(figsize=(8, 8))
+    all_ku_values = []
 
-    contour_filled = ax.contourf(mu_vals, lambda_vals, ku,
-                                 levels=50, cmap='jet')
-    ax.contour(mu_vals, lambda_vals, ku, levels=25,
-               colors='black', linewidths=0.5)
+    for mu in mu_values_to_plot:
+        ku_values = calculate_understeer_gradient(lambda_range, mu, vehicle_params)
+        all_ku_values.append(ku_values)
+        ax.plot(lambda_range, ku_values, label=f'μ = {mu}', linewidth=2)
 
-    ax.set_xscale('log')
-    ax.set_xlabel('μ', fontsize=14)
-    ax.set_ylabel('λ', fontsize=14, rotation=0, labelpad=15)
-    ax.set_title('Understeer Gradient $k_u$', fontsize=16)
-    ax.set_box_aspect(1)
+    # Plot limits
+    all_ku_values = np.concatenate(all_ku_values)
+    y_min, y_max = np.min(all_ku_values), np.max(all_ku_values)
+    y_padding = (y_max - y_min) * 0.1
+    ax.set_ylim(y_min - y_padding, y_max + y_padding)
 
-    ax.set_xticks([0.1, 1, 10])
-    ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
-    ax.xaxis.set_minor_formatter(ticker.NullFormatter())
-
-    cbar = fig.colorbar(contour_filled, ax=ax, orientation='horizontal',
-                        pad=0.15, aspect=40)
-    cbar.set_label('$k_u$', fontsize=12)
+    # Formatting
+    ax.set_title("Understeer Gradient (k_u) vs Roll Stiffness Distribution", fontsize=16)
+    ax.set_xlabel("λ (Roll Stiffness Distribution)", fontsize=12)
+    ax.set_ylabel("k_u [deg/g]", fontsize=12)
+    ax.legend(title="Chassis Stiffness μ")
+    ax.grid(True, linestyle=':')
+    ax.set_xlim(0.2, 0.8)
 
     plt.tight_layout()
     plt.show()
+
 
 if __name__ == "__main__":
     main()
