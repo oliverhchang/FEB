@@ -43,8 +43,6 @@ def main():
     """Main function to generate the line plot."""
 
     # --- Vehicle Parameters (from your previous code) ---
-    # NOTE: To closely match the paper's graph, the compliance parameters
-    # might need adjustment. These values are used as a baseline.
     vehicle_params = {
         # Geometry
         'l': 2.5,  # wheelbase [m]
@@ -78,7 +76,8 @@ def main():
     ku_grid_deg = ku_grid_rad * 180 / np.pi
 
     # --- Plotting ---
-    fig, ax = plt.subplots(figsize=(8, 7))
+    # CHANGED: figsize is now square
+    fig, ax = plt.subplots(figsize=(8, 8))
 
     # Define a color cycle to distinguish lines
     colors = plt.cm.viridis(np.linspace(0, 1, len(lambda_series)))
@@ -97,9 +96,13 @@ def main():
 
     # Set axis limits and ticks
     ax.set_xlim(0.1, 10)
+    # CHANGED: y-axis limit is now 2.0
     ax.set_ylim(0.6, 2.0)
     ax.set_xticks([0.1, 1, 10])
     ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
+
+    # ADDED: Enforce a square plot box
+    ax.set_box_aspect(1)
 
     # Grid and Legend
     ax.grid(True, which='both', linestyle=':', linewidth=0.8)
