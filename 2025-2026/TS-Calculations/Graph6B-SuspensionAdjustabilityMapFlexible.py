@@ -37,7 +37,7 @@ def main():
         'k_f': 240,
         'k_r': 176,
         # Assumed Chassis Torsional Stiffness [Nm/deg]
-        'k_c_deg': 1200.0
+        'k_c_deg': 1600.0
     }
 
 
@@ -96,7 +96,7 @@ def main():
 
     # --- Step 5: Generate the Background Contour Map ---
     rsd_grid_vals = np.linspace(0.3, 0.7, 100)
-    k_total_grid_vals = np.linspace(400, 1000, 100)
+    k_total_grid_vals = np.linspace(400, 1100, 100)
     RSD, K_TOTAL = np.meshgrid(rsd_grid_vals, k_total_grid_vals)
 
     # Calculate mu for each point on the grid
@@ -135,7 +135,7 @@ def main():
     ax.set_xlabel('λ, Roll Stiffness Distribution (Front %)', fontsize=14)
     ax.set_ylabel('Total Roll Stiffness (Nm/deg)', fontsize=14)
     ax.set_xlim(0.3, 0.7)
-    ax.set_ylim(400, 1000)
+    ax.set_ylim(400, 1100)
     ax.legend(fontsize=10)
     ax.grid(True, linestyle='--', alpha=0.6)
 

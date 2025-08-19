@@ -72,7 +72,7 @@ def main():
 
     # --- Step 5: Generate the Background Contour Map (Rigid Body) ---
     rsd_grid_vals = np.linspace(0.3, 0.7, 100)
-    k_total_grid_vals = np.linspace(400, 1000, 100)
+    k_total_grid_vals = np.linspace(400, 1100, 100)
     RSD, K_TOTAL = np.meshgrid(rsd_grid_vals, k_total_grid_vals)
 
     # Calculate the rigid LLTD. It only depends on RSD (lambda), not total stiffness.
@@ -101,7 +101,7 @@ def main():
     ax.set_xlabel('λ, Roll Stiffness Distribution (Front %)', fontsize=14)
     ax.set_ylabel('Total Roll Stiffness (Nm/deg)', fontsize=14)
     ax.set_xlim(0.3, 0.7)
-    ax.set_ylim(400, 1000)
+    ax.set_ylim(400, 1100)
     ax.legend(fontsize=10)
     ax.grid(True, linestyle='--', alpha=0.6)
 
