@@ -3,62 +3,78 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
 
-def calculate_understeer_gradient(lambda_vals, mu_vals, params):
+def calculate_understeer_gradient(mu_vals, lambda_val, params):
     """
     Calculates the understeer gradient (ku) for a flexible chassis.
-    This function is taken directly from your previous code.
+    Accepts a range of mu values and a single lambda value.
+    Returns ku in deg/g (using degrees throughout), based on the provided formula.
     """
-    m = params['m']
-    a = params['a']
-    b = params['b']
-    l = params['l']
-    C_F = params['C_F']
-    C_R = params['C_R']
-    eps_F = params['eps_F']
-    eps_R = params['eps_R']
-    zeta = params['zeta']
-    phi_y = params['phi_y']
+    # mu is now the array, l is a scalar
+    mu = np.copy(mu_vals)
+    l = lambda_val
+    g = 9.81  # m/s^2
 
-    # Create a 2D grid for vectorized calculation
-    # L corresponds to lambda (columns), M corresponds to mu (rows)
-    L, M = np.meshgrid(lambda_vals, mu_vals)
+    # --- Part 1: Standard Understeer from Tire/Mass properties ---
+    # This part is a single scalar value
+    tire_mass_component = (params['m'] / params['l']) * (
+        (params['b_cg_rear'] / params['C_F_deg']) - (params['a_cg_front'] / params['C_R_deg'])
+    )
 
-    # First term (rigid chassis contribution)
-    term1 = (m / l) * (b / C_F - a / C_R)
+    # --- Part 2: Roll Steer Component for a Flexible Chassis ---
+    # NumPy will correctly broadcast the scalar 'l' with the array 'mu'
+    denominator = mu + l - l ** 2
+    denominator[denominator == 0] = 1e-9  # prevent divide by zero
 
-    # Flexible chassis correction terms
-    denominator = L + M - L ** 2
-    denominator[denominator == 0] = 1e-9  # avoid divide by zero
+    phi_y = params['phi_y']  # baseline roll gradient (deg per m/s^2)
 
-    term2 = ((M + (1 - L) * zeta) / denominator) * eps_F
-    term3 = ((M + L * (1 - zeta)) / denominator) * eps_R
+    phi_f_component = (mu + (1 - l) * params['zeta']) / denominator
+    phi_r_component = (mu + l * (1 - params['zeta'])) / denominator
 
-    # ku is returned in radians/g assuming inputs are in SI units/radians
-    ku = term1 - (term2 - term3) * phi_y
+    roll_steer_component = (phi_f_component * params['eps_F'] - phi_r_component * params['eps_R']) * phi_y
 
-    return ku
+    # Multiply the intermediate result by g to get the final units of deg/g
+    ku_deg_per_g = (tire_mass_component - roll_steer_component) * g
+    return ku_deg_per_g
 
 
 def main():
-    """Main function to generate the line plot."""
+    """Generate Understeer Gradient vs Normalised Chassis Torsional Stiffness plot."""
 
-    # --- Vehicle Parameters (from your previous code) ---
+    # --- Vehicle parameters ---
     vehicle_params = {
-        # Geometry
-        'l': 2.5,  # wheelbase [m]
-        'a': 1.25,  # CG to front axle [m]
-        'b': 1.25,  # CG to rear axle [m]
-        # Mass
-        'm': 800.0,  # total mass [kg] - adjusted to match graph magnitude
-        # Tire cornering stiffness [N/rad]
-        'C_F': 80000.0,
-        'C_R': 80000.0,
-        # Compliance parameters
-        'eps_F': -0.05,  # roll steer front
-        'eps_R': 0.15,  # roll steer rear
-        'zeta': 0.05,  # roll axis inclination param - adjusted
-        'phi_y': 0.08  # roll angle per g lat acc [rad/g] - adjusted
+        'm': 310.0, 'm_uF': 12.0,
+        'm_uR': 12.0,
+        'l': 1.592,
+        'front_weight_dist': 0.535,
+        'd_sF': 0.273 - 0.115,
+        'd_sR': 0.273 - 0.165,
+        'k_F_springs': 240.0,
+        'k_R_springs': 176.0,  # N·m/deg
+        'eps_F': 0.07,
+        'eps_R': 0.12,
+        'C_F': 250.0,
+        'C_R': 250.0,  # Tire cornering stiffness in N/deg
     }
+
+    # --- Pre-calculations ---
+    vehicle_params['a_cg_front'] = vehicle_params['l'] * (1 - vehicle_params['front_weight_dist'])
+    vehicle_params['b_cg_rear'] = vehicle_params['l'] * vehicle_params['front_weight_dist']
+
+    # Sprung masses
+    m_sF = (vehicle_params['m'] * vehicle_params['b_cg_rear'] / vehicle_params['l']) - vehicle_params['m_uF']
+    m_sR = (vehicle_params['m'] * vehicle_params['a_cg_front'] / vehicle_params['l']) - vehicle_params['m_uR']
+
+    vehicle_params['zeta'] = (m_sF * vehicle_params['d_sF']) / \
+                             (m_sF * vehicle_params['d_sF'] + m_sR * vehicle_params['d_sR'])
+
+    # Keep cornering stiffness in deg
+    vehicle_params['C_F_deg'] = vehicle_params['C_F']
+    vehicle_params['C_R_deg'] = vehicle_params['C_R']
+
+    # Roll stiffness in deg
+    total_roll_stiffness_deg = vehicle_params['k_F_springs'] + vehicle_params['k_R_springs']
+    roll_moment_total = m_sF * vehicle_params['d_sF'] + m_sR * vehicle_params['d_sR']
+    vehicle_params['phi_y'] = roll_moment_total / total_roll_stiffness_deg  # deg per m/s^2
 
     # --- Setup for the plot ---
     # Define the mu range for the x-axis
@@ -67,28 +83,18 @@ def main():
     # Define the constant lambda values for each line series
     lambda_series = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
 
-    # --- Calculation ---
-    # Calculate the entire grid of ku values once.
-    # The output `ku_grid_rad` will have shape (len(mu_vals), len(lambda_series))
-    ku_grid_rad = calculate_understeer_gradient(lambda_series, mu_vals, vehicle_params)
-
-    # Convert the entire grid from rad/g to deg/g for plotting
-    ku_grid_deg = ku_grid_rad * 180 / np.pi
-
     # --- Plotting ---
-    # CHANGED: figsize is now square
     fig, ax = plt.subplots(figsize=(8, 8))
 
-    # Define a color cycle to distinguish lines
-    colors = plt.cm.viridis(np.linspace(0, 1, len(lambda_series)))
+    # Loop through each CONSTANT lambda value to plot a line
+    for lam in lambda_series:
+        # Calculate the ku values for this specific lambda across all mu values
+        ku_values_for_series = calculate_understeer_gradient(mu_vals, lam, vehicle_params)
 
-    # Loop through each lambda series (each column of the grid) to plot it
-    for i, lam in enumerate(lambda_series):
-        # Get the column of data corresponding to this lambda value
-        ku_values_for_series = ku_grid_deg[:, i]
+        # The function already returns the result in deg/g, so no conversion is needed
         ax.plot(mu_vals, ku_values_for_series, label=f'λ = {lam:.1f}', linewidth=2.5)
 
-    # --- Styling to replicate the reference image ---
+    # --- Styling ---
     ax.set_xscale('log')
     ax.set_xlabel('μ', fontsize=16)
     ax.set_ylabel('$k_u$ [deg/g]', fontsize=16)
@@ -96,12 +102,11 @@ def main():
 
     # Set axis limits and ticks
     ax.set_xlim(0.1, 10)
-    # CHANGED: y-axis limit is now 2.0
-    ax.set_ylim(0.6, 2.0)
+    ax.set_ylim(0.7, 1.0)
     ax.set_xticks([0.1, 1, 10])
     ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
 
-    # ADDED: Enforce a square plot box
+    # Enforce a square plot box
     ax.set_box_aspect(1)
 
     # Grid and Legend
