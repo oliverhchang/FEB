@@ -38,7 +38,7 @@ def main():
 
     # --- Design Goal Parameters ---
     # Define the maximum acceptable non-linearity error for tunability
-    error_threshold = 0.04  # Example: 5% maximum acceptable relative error
+    error_threshold = 0.02  # Example: 5% maximum acceptable relative error
     # The search for the worst-case scenario will now cover all lambda values.
     # target_lambda_range = [0.4, 0.6] # This is no longer used.
 
