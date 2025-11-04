@@ -1,0 +1,67 @@
+,,
+Iteration,Mass,Name
+1,23.915,Baseline 1
+2,24.641,Cockpit
+3,25.569,Cockpit
+4,26.196,Cockpit
+5,26.588,Cockpit
+6,26.888,Cockpit
+7,27.634,Cockpit
+8,28.114,Cockpit
+9,30.274,FRH Brace
+10,30.421,FRH Brace
+11,29.596,FRH Brace
+12,24.021,Headrest
+13,24.046,Headrest
+14,24.095,Headrest
+15,26.15,Baseline 2
+16,25.55,Accum tube
+17,25.3,CARL Mounting Tube
+18,25.57,CARL Mounting Tube
+19,25.46,CARL Mounting Tube
+20,25.39,CARL Mounting Tube
+21,25.57,CARL Mounting Tube
+22,25.45,CARL Mounting Tube
+23,29.573,GT Concept
+24,30.881,Taper Geometry
+25,30.85,Taper Geometry
+26,30.824,Taper Geometry
+27,30.802,Taper Geometry
+28,30.786,Taper Geometry
+29,30.777,Taper Geometry
+30,30.836,Single Tube
+31,30.85101,Single Tube
+32,30.87858,Single Tube
+33,30.8957,Single Tube
+34,30.90868,Single Tube
+35,30.94072,Single Tube
+36,31.95293,Baseline 3
+37,31.614,Accum Clearance
+38,31.567,Accum Clearance
+39,31.523,Accum Clearance
+40,31.504,Accum Clearance
+41,31.483,Accum Clearance
+42,30.459,Rear Cage 1
+43,30.518,Rear Cage 2
+44,30.57263,Single Tube Size
+45,30.58576,Single Tube Size
+46,30.61096,Single Tube Size
+47,30.62657,Single Tube Size
+48,30.63841,Single Tube Size
+49,30.66762,Single Tube Size
+50,30.67499,Single Tube Size
+51,30.7123,Single Tube Size
+52,30.78448,Single Tube Size
+53,30.67499,Double Tube Angle
+54,30.6581,Double Tube Angle
+55,30.64993,Double Tube Angle
+56,30.63908,Double Tube Angle
+57,30.63423,Double Tube Angle
+58,30.63055,Double Tube Angle
+59,30.62768,Double Tube Angle
+60,30.62312,Double Tube Angle
+61,30.62768,Double Tube Angle
+62,30.486,Inverter Tubes
+63,29.847,w/o Inverter Tubes
+64,30.8,Rear Cage Triangulation 2
+65,29.6,Rear Cage Triangulation 2

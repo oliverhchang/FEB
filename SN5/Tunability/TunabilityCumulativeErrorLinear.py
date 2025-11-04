@@ -100,7 +100,6 @@ def main():
     ax1.fill_between(kc_sweep, lower_bound, upper_bound, color='grey', alpha=0.2, label='Tuning Window')
 
     # Styling for the first plot
-    # ax1.set_xscale('log') # Removed to make x-axis linear
     ax1.set_title("LLTD Tuning Window vs. Chassis Torsional Stiffness", fontsize=16, pad=15)
     ax1.set_xlabel("Chassis Torsional Stiffness (k_c) [N·m/deg]", fontsize=12)
     ax1.set_ylabel("LLTD (χ)", fontsize=12)
@@ -134,8 +133,26 @@ def main():
     # Plot the single cumulative error range line
     ax2.plot(kc_sweep, total_error_range, color='darkviolet', lw=2.5, label='Total LLTD Error Range')
 
+    # --- FIXED SECTION: Add a vertical line and annotation for 2% error ---
+    target_error = 1
+    # Find the index of the value in total_error_range closest to the target_error
+    idx = (np.abs(total_error_range - target_error)).argmin()
+    kc_at_2_percent_error = kc_sweep[idx]
+    actual_error_at_kc = total_error_range[idx]
+
+    # Add a vertical line at this kc value
+    ax2.axvline(x=kc_at_2_percent_error, color='red', linestyle='--', linewidth=2, label=f'2% Error Target (k_c ≈ {kc_at_2_percent_error:.0f})')
+
+    # Annotate the line
+    ax2.annotate(f'k_c = {kc_at_2_percent_error:.0f} N·m/deg\nError = {actual_error_at_kc:.2f}%',
+                 xy=(kc_at_2_percent_error, actual_error_at_kc),
+                 xytext=(kc_at_2_percent_error + 500, actual_error_at_kc + 1),
+                 arrowprops=dict(facecolor='black', shrink=0.05),
+                 fontsize=10,
+                 bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="black", lw=1))
+    # --- END OF FIXED SECTION ---
+
     # Styling for the second plot
-    # ax2.set_xscale('log') # Removed to make x-axis linear
     ax2.set_title("Total LLTD Error Range vs. Chassis Torsional Stiffness", fontsize=16, pad=15)
     ax2.set_xlabel("Chassis Torsional Stiffness (k_c) [N·m/deg]", fontsize=12)
     ax2.set_ylabel("Total Error Range (Upper - Lower Bound) [%]", fontsize=12)
@@ -153,4 +170,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
