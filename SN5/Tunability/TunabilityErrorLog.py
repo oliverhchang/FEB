@@ -149,16 +149,6 @@ def main():
         kc_at_crossing = kc_sweep[crossing_index]
         error_at_crossing = upper_error_bound[crossing_index]
 
-        # Add an annotation pointing to this specific point
-        ax2.annotate(
-            f'~{kc_at_crossing:.0f} N·m/deg',
-            xy=(kc_at_crossing, error_at_crossing),
-            xytext=(kc_at_crossing, 6),
-            arrowprops=dict(facecolor='black', shrink=0.05, width=1, headwidth=5),
-            fontsize=11,
-            horizontalalignment='center',
-            bbox=dict(boxstyle="round,pad=0.4", fc="wheat", ec="black", lw=1, alpha=0.8)
-        )
 
     # Styling for the second plot
     ax2.set_xscale('log')
