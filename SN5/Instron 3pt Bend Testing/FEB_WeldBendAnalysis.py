@@ -9,39 +9,43 @@ COL_FORCE = 'Force'
 COL_DISP = 'Displacement'
 FORCE_MULTIPLIER_TO_NEWTONS = 1000  # 1000 for kN, 1 for N
 
-# Material properties for 4130 Steel with ER70S filler
-THEORETICAL_YIELD_STRENGTH_MPA = 414.0
-THEORETICAL_MODULUS_GPA = 200.0
+# Material properties
+THEORETICAL_YIELD_STRENGTH_MPA = 414.0  # 4130 Base Metal
+THEORETICAL_MODULUS_GPA = 200.0  # Theoretical "stiffness" of steel
+# UTS is no longer needed as the calculation it was for was invalid
 
 # Specimen geometry
-L_mm = 100.0  # support span
-b_mm = 76.2  # width (3 inches)
+L_mm = 152.4  # 6 inches support span
+b_mm = 76.2  # 3 inches width
 h1_mm = 1.5875  # 1/16"
 h2_mm = 3.175  # 1/8"
 
 # Calculate theoretical yield forces
-F_TH_1_16_kN = (2 * THEORETICAL_YIELD_STRENGTH_MPA * b_mm * h1_mm**2) / (3 * L_mm * 1000)
-F_TH_1_8_kN = (2 * THEORETICAL_YIELD_STRENGTH_MPA * b_mm * h2_mm**2) / (3 * L_mm * 1000)
+F_TH_1_16_kN = (2 * THEORETICAL_YIELD_STRENGTH_MPA * b_mm * h1_mm ** 2) / (3 * L_mm * 1000)
+F_TH_1_8_kN = (2 * THEORETICAL_YIELD_STRENGTH_MPA * b_mm * h2_mm ** 2) / (3 * L_mm * 1000)
 
 metadata = {
-    1: ("Tommy 1/16", "1/16", h1_mm, h1_mm**2, F_TH_1_16_kN),
-    2: ("Spencer 1/16", "1/16", h1_mm, h1_mm**2, F_TH_1_16_kN),
-    3: ("Arnav 1/16", "1/16", h1_mm, h1_mm**2, F_TH_1_16_kN),
-    4: ("Arnav 1/16", "1/16", h1_mm, h1_mm**2, F_TH_1_16_kN),
-    5: ("Jessica 1/16", "1/16", h1_mm, h1_mm**2, F_TH_1_16_kN),
-    6: ("Oliver /16", "1/16", h1_mm, h1_mm**2, F_TH_1_16_kN),
-    7: ("Jessica 1/8", "1/8", h2_mm, h2_mm**2, F_TH_1_8_kN),
-    8: ("Oliver 1/8", "1/8", h2_mm, h2_mm**2, F_TH_1_8_kN),
-    9: ("Tommy 1/8", "1/8", h2_mm, h2_mm**2, F_TH_1_8_kN),
-    10: ("Spencer 1/8", "1/8", h2_mm, h2_mm**2, F_TH_1_8_kN),
-    11: ("Arnav 1/8", "1/8", h2_mm, h2_mm**2, F_TH_1_8_kN),
+    1: ("Tommy 1/16", "1/16", h1_mm, h1_mm ** 2, F_TH_1_16_kN),
+    2: ("Spencer 1/16", "1/16", h1_mm, h1_mm ** 2, F_TH_1_16_kN),
+    3: ("Arnav 1/16", "1/16", h1_mm, h1_mm ** 2, F_TH_1_16_kN),
+    4: ("Arnav 1/16", "1/16", h1_mm, h1_mm ** 2, F_TH_1_16_kN),
+    5: ("Jessica 1/16", "1/16", h1_mm, h1_mm ** 2, F_TH_1_16_kN),
+    6: ("Oliver /16", "1/16", h1_mm, h1_mm ** 2, F_TH_1_16_kN),
+    7: ("Jessica 1/8", "1/8", h2_mm, h2_mm ** 2, F_TH_1_8_kN),
+    8: ("Oliver 1/8", "1/8", h2_mm, h2_mm ** 2, F_TH_1_8_kN),
+    9: ("Tommy 1/8", "1/8", h2_mm, h2_mm ** 2, F_TH_1_8_kN),
+    10: ("Spencer 1/8", "1/8", h2_mm, h2_mm ** 2, F_TH_1_8_kN),
+    11: ("Arnav 1/8", "1/8", h2_mm, h2_mm ** 2, F_TH_1_8_kN),
 }
 
 
 def calculate_stress_strain(df, L, b, h, h2):
+    """
+    Calculates stress and strain using elastic formulas.
+    WARNING: These values become *notional* after the yield point.
+    """
     if COL_FORCE not in df.columns or COL_DISP not in df.columns:
         print(f"  ERROR: Can't find '{COL_FORCE}' or '{COL_DISP}' columns")
-        print(f"  Available columns: {list(df.columns)}")
         raise KeyError("Missing required columns")
 
     # Calculate flexural stress: sigma = (3*F*L)/(2*b*h^2)
@@ -55,18 +59,27 @@ def calculate_stress_strain(df, L, b, h, h2):
     return df
 
 
-def get_flexural_modulus(df):
+def get_flexural_modulus(df, theoretical_yield_force_kN):
+    """
+    Calculates modulus from the slope of the *true* linear-elastic region,
+    defined as 10% to 50% of the theoretical yield force.
+    """
     try:
-        max_stress = df['Flexural Stress (MPa)'].max()
+        # Define the linear region based on a fraction of the *theoretical* yield force
+        min_force_kN = 0.10 * theoretical_yield_force_kN  # 10%
+        max_force_kN = 0.50 * theoretical_yield_force_kN  # 50%
+
         linear_region = df[
-            (df['Flexural Stress (MPa)'] > 0.4 * max_stress) &
-            (df['Flexural Stress (MPa)'] < 0.6 * max_stress)
-        ]
+            (df[COL_FORCE] > min_force_kN) &
+            (df[COL_FORCE] < max_force_kN)
+            ]
 
         if len(linear_region) < 2:
-            print("  WARNING: Not enough points for modulus calculation")
+            print(
+                f"  WARNING: Not enough points for modulus calculation in force range {min_force_kN:.2f}-{max_force_kN:.2f} kN")
             return np.nan
 
+        # Fit the line to the Stress vs. Strain data in this new, reliable region
         slope, _, _, _, _ = linregress(
             linear_region['Flexural Strain'],
             linear_region['Flexural Stress (MPa)']
@@ -79,7 +92,12 @@ def get_flexural_modulus(df):
 
 
 def get_energy_to_failure(df):
+    """
+    Calculates Energy to Failure (Toughness) by finding the
+    area under the Force-Displacement curve. THIS IS A KEY METRIC.
+    """
     force_in_kN = df[COL_FORCE] if FORCE_MULTIPLIER_TO_NEWTONS == 1000 else df[COL_FORCE] / 1000.0
+    # Energy (J) = Area under Force (kN) vs. Displacement (mm) curve
     return np.trapezoid(force_in_kN, x=df[COL_DISP])
 
 
@@ -87,6 +105,7 @@ def main():
     print("Starting weld bend test analysis...")
     print(f"Theoretical yield force (1/16\"): {F_TH_1_16_kN:.3f} kN")
     print(f"Theoretical yield force (1/8\"):  {F_TH_1_8_kN:.3f} kN")
+    print(f"Theoretical Modulus: {THEORETICAL_MODULUS_GPA} GPa")
 
     data_folder = 'bend_test_data'
     all_results = []
@@ -105,7 +124,6 @@ def main():
         print(f"Processing: {filepath} ({note})")
 
         try:
-            # Read CSV (skip first 3 rows, no header)
             df = pd.read_csv(filepath, header=None, skiprows=3, encoding='utf-8-sig')
             df = df.iloc[:, :3]
             df.columns = ['Time', 'Displacement', 'Force']
@@ -122,30 +140,32 @@ def main():
 
             df = calculate_stress_strain(df, L_mm, b_mm, h_val, h2_val)
 
+            # --- Perform Calculations ---
             peak_force_kN = df[COL_FORCE].max()
             disp_at_peak_mm = df.loc[df[COL_FORCE].idxmax(), COL_DISP]
+
+            # Notional stress at peak load (for reference, but not a real value)
             peak_stress_MPa = df['Flexural Stress (MPa)'].max()
-            strain_at_peak = df.loc[df['Flexural Stress (MPa)'].idxmax(), 'Flexural Strain']
-            modulus_GPa = get_flexural_modulus(df)
+
+            # --- CORRECTED & RELEVANT CALCULATIONS ---
+            modulus_GPa = get_flexural_modulus(df, F_th_val)
             energy_J = get_energy_to_failure(df)
-            force_efficiency = (peak_force_kN / F_th_val) * 100 if peak_force_kN > 0 else 0.0
+
+            # --- REMOVED flawed t_calculated_mm ---
 
             summary = {
                 "Specimen ID": spec_id,
                 "Note": note,
                 "Thickness (in)": thickness_str,
                 "Peak Force (kN)": peak_force_kN,
-                "Theoretical Yield Force (kN)": F_th_val,
-                "Force Efficiency (%)": force_efficiency,
                 "Displacement at Peak Force (mm)": disp_at_peak_mm,
-                "Flexural Strength (MPa)": peak_stress_MPa,
-                "Strain at Peak Strength": strain_at_peak,
                 "Flexural Modulus (GPa)": modulus_GPa,
-                "Theoretical Modulus (GPa)": THEORETICAL_MODULUS_GPA,
-                "Energy to Failure (J)": energy_J
+                "Energy to Failure (J)": energy_J,
+                "Notional Flexural Strength (MPa)": peak_stress_MPa,
             }
             all_results.append(summary)
 
+            # --- Plotting ---
             label = f"ID {spec_id}: {note}"
             if thickness_str == "1/16":
                 ax_fd_1.plot(df[COL_DISP], df[COL_FORCE], label=label, alpha=0.8)
@@ -162,13 +182,13 @@ def main():
     if not all_results:
         print("WARNING: No data processed")
 
+    # --- Updated Column Order ---
     column_order = [
         "Specimen ID", "Note", "Thickness (in)",
-        "Peak Force (kN)", "Theoretical Yield Force (kN)", "Force Efficiency (%)",
-        "Displacement at Peak Force (mm)",
-        "Flexural Strength (MPa)", "Strain at Peak Strength",
-        "Flexural Modulus (GPa)", "Theoretical Modulus (GPa)",
-        "Energy to Failure (J)"
+        "Peak Force (kN)", "Displacement at Peak Force (mm)",
+        "Flexural Modulus (GPa)",
+        "Energy to Failure (J)",
+        "Notional Flexural Strength (MPa)"  # Kept for reference
     ]
 
     summary_df = pd.DataFrame(all_results, columns=column_order)
@@ -176,11 +196,12 @@ def main():
     summary_df.to_csv('cumulative_bend_test_results.csv', index=False)
     print(f"Saved {len(summary_df)} results to cumulative_bend_test_results.csv")
 
-    # Format force-displacement plots
+    # --- Format plots ---
     ax_fd_1.set_title('Force vs. Displacement (1/16" Specimens)', fontsize=16)
     ax_fd_1.set_xlabel('Displacement (mm)')
     ax_fd_1.set_ylabel('Force (kN)')
-    ax_fd_1.axhline(y=F_TH_1_16_kN, color='r', linestyle=':', linewidth=2, label=f"Theoretical Yield ({F_TH_1_16_kN:.2f} kN)")
+    ax_fd_1.axhline(y=F_TH_1_16_kN, color='r', linestyle=':', linewidth=2,
+                    label=f"Theoretical Yield ({F_TH_1_16_kN:.2f} kN)")
     if ax_fd_1.has_data():
         ax_fd_1.legend(loc='best')
     ax_fd_1.grid(True, linestyle='--')
@@ -188,7 +209,8 @@ def main():
     ax_fd_2.set_title('Force vs. Displacement (1/8" Specimens)', fontsize=16)
     ax_fd_2.set_xlabel('Displacement (mm)')
     ax_fd_2.set_ylabel('Force (kN)')
-    ax_fd_2.axhline(y=F_TH_1_8_kN, color='r', linestyle=':', linewidth=2, label=f"Theoretical Yield ({F_TH_1_8_kN:.2f} kN)")
+    ax_fd_2.axhline(y=F_TH_1_8_kN, color='r', linestyle=':', linewidth=2,
+                    label=f"Theoretical Yield ({F_TH_1_8_kN:.2f} kN)")
     if ax_fd_2.has_data():
         ax_fd_2.legend(loc='best')
     ax_fd_2.grid(True, linestyle='--')
@@ -197,7 +219,6 @@ def main():
     fig_fd.savefig('force_vs_displacement_plots.png')
     print("Saved force_vs_displacement_plots.png")
 
-    # Format stress-strain plots
     ax_ss_1.set_title('Stress vs. Strain (1/16" Specimens)', fontsize=16)
     ax_ss_1.set_xlabel('Strain (mm/mm)')
     ax_ss_1.set_ylabel('Stress (MPa)')
@@ -220,8 +241,7 @@ def main():
     fig_ss.savefig('stress_vs_strain_plots.png')
     print("Saved stress_vs_strain_plots.png")
 
-    print("\nAnalysis complete!")
-
+print("\nAnalysis complete!")
 
 if __name__ == "__main__":
     main()
