@@ -1,0 +1,1131 @@
+{
+  "nodes": {
+    "0": [
+      -155.8,
+      -178.5,
+      129.2
+    ],
+    "1": [
+      -155.8,
+      178.5,
+      129.2
+    ],
+    "2": [
+      711.3,
+      -178.5,
+      129.2
+    ],
+    "3": [
+      711.3,
+      178.5,
+      129.2
+    ],
+    "4": [
+      711.3,
+      -178.5,
+      466.3
+    ],
+    "5": [
+      711.3,
+      178.5,
+      466.3
+    ],
+    "6": [
+      -57.8,
+      -210.2,
+      606.5
+    ],
+    "7": [
+      -57.8,
+      210.2,
+      606.5
+    ],
+    "8": [
+      -106.4,
+      231.7,
+      369.7
+    ],
+    "9": [
+      125.2,
+      219.8,
+      251.6
+    ],
+    "10": [
+      125.2,
+      -219.8,
+      251.6
+    ],
+    "11": [
+      150.3,
+      -178.5,
+      129.2
+    ],
+    "12": [
+      150.3,
+      178.5,
+      129.2
+    ],
+    "13": [
+      -106.4,
+      -231.7,
+      369.7
+    ],
+    "14": [
+      -4.5,
+      -208.0,
+      596.8
+    ],
+    "15": [
+      -4.5,
+      208.0,
+      596.8
+    ],
+    "16": [
+      65.0,
+      -178.5,
+      129.2
+    ],
+    "17": [
+      65.0,
+      178.5,
+      129.2
+    ],
+    "18": [
+      -459.1,
+      -298.1,
+      66.7
+    ],
+    "19": [
+      -433.0,
+      -295.4,
+      39.0
+    ],
+    "20": [
+      -459.1,
+      298.1,
+      66.7
+    ],
+    "21": [
+      -737.9,
+      327.0,
+      362.0
+    ],
+    "22": [
+      -737.9,
+      -327.0,
+      362.0
+    ],
+    "23": [
+      -791.8,
+      -145.0,
+      1096.0
+    ],
+    "24": [
+      -791.8,
+      145.0,
+      1096.0
+    ],
+    "25": [
+      -433.0,
+      295.4,
+      39.0
+    ],
+    "26": [
+      -726.9,
+      -322.7,
+      362.0
+    ],
+    "27": [
+      -726.9,
+      322.7,
+      362.0
+    ],
+    "28": [
+      -737.9,
+      -322.7,
+      362.0
+    ],
+    "29": [
+      -1537.8,
+      298.1,
+      98.9
+    ],
+    "30": [
+      -1537.8,
+      -298.1,
+      98.9
+    ],
+    "31": [
+      -1537.8,
+      -311.4,
+      373.3
+    ],
+    "32": [
+      -1537.8,
+      311.4,
+      373.3
+    ],
+    "33": [
+      -1318.1,
+      -298.1,
+      62.0
+    ],
+    "34": [
+      -1250.6,
+      -311.4,
+      360.6
+    ],
+    "35": [
+      -1318.1,
+      298.1,
+      62.0
+    ],
+    "36": [
+      -1250.6,
+      311.4,
+      360.6
+    ],
+    "37": [
+      -1318.1,
+      -323.5,
+      62.0
+    ],
+    "38": [
+      -1250.6,
+      -336.8,
+      360.6
+    ],
+    "39": [
+      -1318.1,
+      323.5,
+      62.0
+    ],
+    "40": [
+      -1250.6,
+      336.8,
+      360.6
+    ],
+    "41": [
+      -443.2,
+      -291.8,
+      69.9
+    ],
+    "42": [
+      -443.2,
+      291.8,
+      69.9
+    ],
+    "43": [
+      -791.1,
+      -147.3,
+      1086.8
+    ],
+    "44": [
+      -791.1,
+      147.3,
+      1086.8
+    ],
+    "45": [
+      -757.9,
+      -259.6,
+      633.7
+    ],
+    "46": [
+      -886.0,
+      -176.6,
+      633.7
+    ],
+    "47": [
+      -764.0,
+      -239.0,
+      716.8
+    ],
+    "48": [
+      -886.0,
+      176.6,
+      633.7
+    ],
+    "49": [
+      -757.9,
+      259.6,
+      633.7
+    ],
+    "50": [
+      -764.0,
+      239.0,
+      716.8
+    ],
+    "51": [
+      -1537.8,
+      -305.7,
+      255.9
+    ],
+    "52": [
+      -1537.8,
+      305.7,
+      255.9
+    ],
+    "53": [
+      -964.9,
+      -209.3,
+      812.2
+    ],
+    "54": [
+      -964.9,
+      209.3,
+      812.2
+    ],
+    "55": [
+      -1195.3,
+      -291.6,
+      448.0
+    ],
+    "56": [
+      -744.2,
+      -305.7,
+      448.0
+    ],
+    "57": [
+      -1195.3,
+      291.6,
+      448.0
+    ],
+    "58": [
+      -744.2,
+      305.7,
+      448.0
+    ]
+  },
+  "members": [
+    {
+      "id": 0,
+      "n1": 0,
+      "n2": 1,
+      "L_mm": 357.0,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 1,
+      "n1": 2,
+      "n2": 3,
+      "L_mm": 357.0,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 2,
+      "n1": 2,
+      "n2": 4,
+      "L_mm": 337.19,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 3,
+      "n1": 4,
+      "n2": 5,
+      "L_mm": 357.0,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 4,
+      "n1": 3,
+      "n2": 5,
+      "L_mm": 337.19,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 5,
+      "n1": 2,
+      "n2": 5,
+      "L_mm": 491.06,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 6,
+      "n1": 6,
+      "n2": 4,
+      "L_mm": 782.33,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "12 1 Al RND TUBE 1.25 OD x 0.049 Wall"
+    },
+    {
+      "id": 7,
+      "n1": 0,
+      "n2": 2,
+      "L_mm": 867.1,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 8,
+      "n1": 5,
+      "n2": 7,
+      "L_mm": 782.33,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "13 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 9,
+      "n1": 3,
+      "n2": 1,
+      "L_mm": 867.1,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 10,
+      "n1": 8,
+      "n2": 9,
+      "L_mm": 260.3,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "18 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 11,
+      "n1": 7,
+      "n2": 9,
+      "L_mm": 399.46,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "16 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 12,
+      "n1": 9,
+      "n2": 5,
+      "L_mm": 625.53,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "10 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 13,
+      "n1": 6,
+      "n2": 10,
+      "L_mm": 399.46,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "17 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 14,
+      "n1": 10,
+      "n2": 4,
+      "L_mm": 625.53,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "11 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 15,
+      "n1": 10,
+      "n2": 11,
+      "L_mm": 131.62,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 16,
+      "n1": 9,
+      "n2": 12,
+      "L_mm": 131.62,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 17,
+      "n1": 13,
+      "n2": 10,
+      "L_mm": 260.3,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "19 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 18,
+      "n1": 9,
+      "n2": 3,
+      "L_mm": 600.12,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 19,
+      "n1": 10,
+      "n2": 2,
+      "L_mm": 600.12,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 20,
+      "n1": 14,
+      "n2": 15,
+      "L_mm": 416.03,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 21,
+      "n1": 16,
+      "n2": 17,
+      "L_mm": 357.0,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 22,
+      "n1": 16,
+      "n2": 17,
+      "L_mm": 357.0,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 23,
+      "n1": 6,
+      "n2": 5,
+      "L_mm": 873.0,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "36 1 Al RND TUBE 1.25 OD x 0.049 Wall"
+    },
+    {
+      "id": 24,
+      "n1": 18,
+      "n2": 19,
+      "L_mm": 38.1,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 25,
+      "n1": 20,
+      "n2": 21,
+      "L_mm": 407.19,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 26,
+      "n1": 18,
+      "n2": 22,
+      "L_mm": 407.19,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 27,
+      "n1": 22,
+      "n2": 23,
+      "L_mm": 758.17,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 28,
+      "n1": 21,
+      "n2": 24,
+      "L_mm": 758.17,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 29,
+      "n1": 20,
+      "n2": 25,
+      "L_mm": 38.1,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 30,
+      "n1": 23,
+      "n2": 24,
+      "L_mm": 289.97,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "44 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 31,
+      "n1": 13,
+      "n2": 26,
+      "L_mm": 627.19,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "24 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 32,
+      "n1": 18,
+      "n2": 13,
+      "L_mm": 469.69,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "22 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 33,
+      "n1": 18,
+      "n2": 0,
+      "L_mm": 331.91,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "20 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 34,
+      "n1": 8,
+      "n2": 27,
+      "L_mm": 627.19,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "25 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 35,
+      "n1": 1,
+      "n2": 20,
+      "L_mm": 331.91,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "21 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 36,
+      "n1": 20,
+      "n2": 8,
+      "L_mm": 469.69,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "23 1 AL RND TUBE 1.25 OD X 0.049 Wall"
+    },
+    {
+      "id": 37,
+      "n1": 26,
+      "n2": 28,
+      "L_mm": 11.0,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 38,
+      "n1": 1,
+      "n2": 8,
+      "L_mm": 251.27,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 39,
+      "n1": 8,
+      "n2": 7,
+      "L_mm": 242.71,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 40,
+      "n1": 7,
+      "n2": 6,
+      "L_mm": 420.42,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 41,
+      "n1": 6,
+      "n2": 13,
+      "L_mm": 242.71,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 42,
+      "n1": 13,
+      "n2": 0,
+      "L_mm": 251.27,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 43,
+      "n1": 29,
+      "n2": 30,
+      "L_mm": 596.2,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 44,
+      "n1": 30,
+      "n2": 31,
+      "L_mm": 274.7,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "42 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 45,
+      "n1": 29,
+      "n2": 32,
+      "L_mm": 274.7,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "43 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 46,
+      "n1": 32,
+      "n2": 31,
+      "L_mm": 622.8,
+      "OD_mm": 28.575,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "50 1 Al RND TUBE 1.125 OD x 0.049 Wall"
+    },
+    {
+      "id": 47,
+      "n1": 30,
+      "n2": 33,
+      "L_mm": 222.73,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 48,
+      "n1": 31,
+      "n2": 34,
+      "L_mm": 287.47,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "45 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 49,
+      "n1": 34,
+      "n2": 33,
+      "L_mm": 306.4,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "38 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 50,
+      "n1": 29,
+      "n2": 35,
+      "L_mm": 222.73,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 51,
+      "n1": 35,
+      "n2": 36,
+      "L_mm": 306.4,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "39 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 52,
+      "n1": 36,
+      "n2": 32,
+      "L_mm": 287.47,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 53,
+      "n1": 34,
+      "n2": 36,
+      "L_mm": 622.8,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 54,
+      "n1": 35,
+      "n2": 33,
+      "L_mm": 596.2,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 55,
+      "n1": 33,
+      "n2": 37,
+      "L_mm": 25.4,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 56,
+      "n1": 34,
+      "n2": 38,
+      "L_mm": 25.4,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 57,
+      "n1": 35,
+      "n2": 39,
+      "L_mm": 25.4,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 58,
+      "n1": 36,
+      "n2": 40,
+      "L_mm": 25.4,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 59,
+      "n1": 41,
+      "n2": 42,
+      "L_mm": 583.7,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 60,
+      "n1": 43,
+      "n2": 34,
+      "L_mm": 874.9,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 61,
+      "n1": 44,
+      "n2": 36,
+      "L_mm": 874.9,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 62,
+      "n1": 45,
+      "n2": 46,
+      "L_mm": 152.68,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 63,
+      "n1": 46,
+      "n2": 47,
+      "L_mm": 160.26,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 64,
+      "n1": 46,
+      "n2": 48,
+      "L_mm": 353.16,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 65,
+      "n1": 48,
+      "n2": 49,
+      "L_mm": 152.68,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 66,
+      "n1": 48,
+      "n2": 50,
+      "L_mm": 160.26,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 67,
+      "n1": 27,
+      "n2": 36,
+      "L_mm": 523.8,
+      "OD_mm": 31.75,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "32 1 Al RND TUBE 1.25 OD x 0.049 Wall"
+    },
+    {
+      "id": 68,
+      "n1": 35,
+      "n2": 20,
+      "L_mm": 859.07,
+      "OD_mm": 31.75,
+      "wall_mm": 1.651,
+      "shape": "SQR",
+      "desc": "28 1 Al TUBE 1.25 SQR x 0.065 WALL"
+    },
+    {
+      "id": 69,
+      "n1": 27,
+      "n2": 35,
+      "L_mm": 663.43,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 70,
+      "n1": 34,
+      "n2": 26,
+      "L_mm": 523.8,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "33 1 Al RND TUBE 1 OD x 0.049 Wall"
+    },
+    {
+      "id": 71,
+      "n1": 33,
+      "n2": 18,
+      "L_mm": 859.07,
+      "OD_mm": 31.75,
+      "wall_mm": 1.651,
+      "shape": "SQR",
+      "desc": "29 1 Al TUBE 1.25 SQR x 0.065 WALL"
+    },
+    {
+      "id": 72,
+      "n1": 33,
+      "n2": 26,
+      "L_mm": 663.43,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 73,
+      "n1": 26,
+      "n2": 27,
+      "L_mm": 645.31,
+      "OD_mm": 25.4,
+      "wall_mm": 2.413,
+      "shape": "RND",
+      "desc": "56 1 Al RND TUBE 1 OD x 0.095 Wall"
+    },
+    {
+      "id": 74,
+      "n1": 51,
+      "n2": 34,
+      "L_mm": 305.71,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 75,
+      "n1": 51,
+      "n2": 33,
+      "L_mm": 293.11,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 76,
+      "n1": 52,
+      "n2": 35,
+      "L_mm": 293.11,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 77,
+      "n1": 52,
+      "n2": 36,
+      "L_mm": 305.71,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 78,
+      "n1": 53,
+      "n2": 54,
+      "L_mm": 418.66,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 79,
+      "n1": 6,
+      "n2": 26,
+      "L_mm": 721.26,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 80,
+      "n1": 7,
+      "n2": 27,
+      "L_mm": 721.26,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 81,
+      "n1": 55,
+      "n2": 56,
+      "L_mm": 451.29,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    },
+    {
+      "id": 82,
+      "n1": 57,
+      "n2": 58,
+      "L_mm": 451.29,
+      "OD_mm": 25.4,
+      "wall_mm": 1.245,
+      "shape": "RND",
+      "desc": "UNMATCHED DEFAULT"
+    }
+  ]
+}

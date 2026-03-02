@@ -118,3 +118,10 @@ fig.update_layout(
 
 print("Opening visualizer in browser...")
 fig.show()
+
+print("Exporting to HTML...")
+fig.write_html("FEB_SN5_Chassis_Analysis.html")
+
+# Still open it locally for you to see
+print("Opening visualizer in browser...")
+fig.show()

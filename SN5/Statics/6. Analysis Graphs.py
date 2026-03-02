@@ -1,73 +1,50 @@
 import json
 import matplotlib.pyplot as plt
-import numpy as np
 
 INPUT_FILE = "chassis_results.json"
 
-# 1. Load Data
+# 1. Load and prepare data
 try:
     with open(INPUT_FILE, "r") as f:
         data = json.load(f)
 except FileNotFoundError:
-    print(f"Error: {INPUT_FILE} not found. Run the solver first.")
+    print(f"Error: {INPUT_FILE} not found. Run the solver script first.")
     exit()
 
 results = data["results"]
 
-# Filter out construction/unmatched lines for analysis
+# Remove construction/unmatched lines to focus on real tubes [cite: 49, 64]
 clean_results = [r for r in results if r['desc'] != 'CONSTRUCTION / UNMATCHED']
 
-# Extract data for plotting
-ids = [r['id'] for r in clean_results]
-fos = [r['FOS'] for r in clean_results]
-stress = [abs(r['sigma_MPa']) for r in clean_results]
-modes = [r['mode'] for r in clean_results]
-od = [r['OD_mm'] for r in clean_results]
+# Sort to identify the 20 weakest tubes [cite: 63, 210]
+sorted_results = sorted(clean_results, key=lambda x: x['FOS'])[:20]
 
-# 2. Setup Figure
-plt.figure(figsize=(10, 8))
+ids = [str(r['id']) for r in sorted_results]
+fos_values = [r['FOS'] for r in sorted_results]
+modes = [r['mode'] for r in sorted_results]
 
-# --- PLOT 1: Top 15 Weakest Tubes (Lowest FOS) ---
-# Sorting to find the most critical tubes as per your planning
-sorted_indices = np.argsort(fos)[:15]
-top_ids = [str(ids[i]) for i in sorted_indices]
-top_fos = [fos[i] for i in sorted_indices]
-top_modes = [modes[i] for i in sorted_indices]
+# 2. Plain Formatting Plot
+plt.figure(figsize=(10, 6))
 
-plt.subplot(2, 1, 1)
-colors = ['#d63031' if m == 'COMP' else '#0984e3' for m in top_modes]
-bars = plt.bar(top_ids, top_fos, color=colors, edgecolor='black', alpha=0.8)
+# Assign colors based on failure mode: Red for Compression/Buckling, Blue for Tension [cite: 40, 41, 203]
+colors = []
+for m in modes:
+    if m == 'COMP':
+        colors.append('red')
+    else:
+        colors.append('blue')
 
-plt.axhline(y=1.0, color='r', linestyle='--', linewidth=1.5, label='Failure (1.0)')
-plt.title("Critical Members: Lowest Factor of Safety", fontsize=12, fontweight='bold')
-plt.ylabel("FOS Value")
+plt.bar(ids, fos_values, color=colors)
+
+# Standard labeling
+plt.title("Factor of Safety per Tube ID (Top 20 Critical)")
 plt.xlabel("Tube ID")
-plt.grid(axis='y', linestyle=':', alpha=0.7)
-plt.legend(['Failure Limit', 'Compression (Buckling)', 'Tension (Yield)'], loc='upper right')
+plt.ylabel("Factor of Safety")
+plt.xticks(rotation=45)
 
-# --- PLOT 2: Axial Stress vs. FOS ---
-# Visualizing the spread to identify the "elbow" of the design
-plt.subplot(2, 1, 2)
-plt.scatter(stress, fos, c=od, cmap='viridis', s=50, edgecolors='black', alpha=0.7)
-
-plt.yscale('log') # FOS spread is exponential; log scale shows detail better
-plt.axhline(y=2.0, color='orange', linestyle='--', label='Design Target (2.0)')
-plt.title("Design Spread: Axial Stress vs. FOS", fontsize=12, fontweight='bold')
-plt.xlabel("Absolute Axial Stress (MPa)")
-plt.ylabel("FOS (Log Scale)")
-plt.colorbar(label='Tube OD (mm)')
-plt.grid(True, which="both", ls="-", alpha=0.2)
-
-# Final Layout
+# Display the plot
 plt.tight_layout()
-print("Displaying graphs in PyCharm...")
 plt.show()
 
-# Print Text Summary to Console
-print("\n" + "-"*30)
-print("QUICK CHASSIS AUDIT")
-print("-"*30)
-min_val = min(fos)
-min_idx = ids[fos.index(min_val)]
-print(f"Absolute Minimum FOS: {min_val} (Tube {min_idx})")
-print(f"Max Stress Encountered: {max(stress):.2f} MPa")
+# Console output summary [cite: 204, 212]
+print(f"Minimum Chassis FOS: {min(fos_values)}")
